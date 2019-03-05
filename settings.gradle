@@ -1,1 +1,1 @@
-include ':app', ':soda-android-sdk'
+include ':app'
