@@ -17,7 +17,10 @@ public class VehicleActivity extends AppCompatActivity {
         Intent intent = getIntent();
         RdwVehicle vehicle = (RdwVehicle) intent.getSerializableExtra(MainActivity.EXTRA_MESSAGE);
 
-        TextView textView = findViewById(R.id.textView);
-        textView.setText(vehicle.kenteken);
+        setTitle(vehicle.kenteken);
+
+        TextView textView = findViewById(R.id.tvType);
+        textView.setText(String.format("%s %s", vehicle.merk, vehicle.handelsbenaming));
+
     }
 }

@@ -2,10 +2,11 @@ package nl.jeroen.kentekencheck;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -31,20 +32,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();//
-    }
-
-    @Override
     public void onClick(View v) {
         final Context context = this;
 
-        reader.getVehicles(DATASET, "kenteken=73TTVX", new Response.Listener<RdwVehicle[]>() {
+        EditText editText = findViewById(R.id.etLicence);
+        String licence = editText.getText().toString();
+
+        //Check if licence is actually a valid licence
+        String query = String.format("kenteken=%s", licence);
+
+        reader.getVehicles(DATASET, query, new Response.Listener<RdwVehicle[]>() {
             @Override
             public void onResponse(RdwVehicle[] response) {
-                RdwVehicle vehicle = response[0];
 
-                if (vehicle != null){
+                if (response.length > 0) {
+                    RdwVehicle vehicle = response[0];
                     Intent intent = new Intent(context, VehicleActivity.class);
                     intent.putExtra(EXTRA_MESSAGE, vehicle);
 
