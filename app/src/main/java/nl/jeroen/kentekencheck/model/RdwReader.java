@@ -18,7 +18,7 @@ public class RdwReader {
     private RequestQueue queue;
 
     private String getFullUrl(String relativeUrl, String query) {
-        return "https://" + domain + "/resource/" + relativeUrl + ".json?" + query;
+        return String.format("https://%s/resource/%s.json?%s", domain, relativeUrl, query);
     }
 
     public RdwReader(String domain, String token, Context context) {
@@ -29,8 +29,8 @@ public class RdwReader {
         queue = Volley.newRequestQueue(context);
     }
 
-    public void getObjects(String dataSet, String query, Response.Listener<RdwVehicle[]> response, Response.ErrorListener errorListener) {
-        GsonRequest<RdwVehicle[]> request = new GsonRequest<>(getFullUrl(dataSet, query), RdwVehicle[].class, headers, response, errorListener);
+    public void getVehicles(String dataSet, String query, Response.Listener<RdwVehicle[]> responseListener, Response.ErrorListener errorListener) {
+        GsonRequest<RdwVehicle[]> request = new GsonRequest<>(getFullUrl(dataSet, query), RdwVehicle[].class, headers, responseListener, errorListener);
 
         queue.add(request);
     }

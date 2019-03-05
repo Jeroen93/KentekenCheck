@@ -1,7 +1,9 @@
 package nl.jeroen.kentekencheck.model;
 
+import java.io.Serializable;
+
 @SuppressWarnings("SpellCheckingInspection")
-public class RdwVehicle
+public class RdwVehicle implements Serializable
 {
     public String aantal_cilinders;
     public String aantal_deuren;
