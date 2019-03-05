@@ -13,23 +13,23 @@
 buildscript {
     repositories {
         maven { url 'http://repo1.maven.org/maven2' }
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.android.tools.build:gradle:3.3.2'
     }
 }
 
 apply plugin: 'com.android.library'
 
 dependencies {
-    compile files('libs/android-async-http-1.4.2-66-g4b6eb97.jar')
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.google.android.gms:play-services:10.0.1'
+    implementation files('libs/android-async-http-1.4.2-66-g4b6eb97.jar')
+    implementation 'com.android.support:appcompat-v7:25.1.0'
+    implementation 'com.google.android.gms:play-services:10.0.1'
 }
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.1'
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
