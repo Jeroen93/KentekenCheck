@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">KentekenCheck</string>
+    <string name="app_token">MRbI4ZhQxfiw3jt5pp9fMzvZb</string>
+    <string name="source_domain">opendata.rdw.nl/</string>
 </resources>
