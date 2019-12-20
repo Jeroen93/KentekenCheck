@@ -42,4 +42,16 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="211dp" />
 
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="10sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/etLicence"
+        app:layout_constraintEnd_toEndOf="@+id/btnPlay"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/etLicence" />
+
 </android.support.constraint.ConstraintLayout>

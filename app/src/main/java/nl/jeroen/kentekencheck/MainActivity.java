@@ -8,6 +8,7 @@ import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -18,12 +19,13 @@ import nl.jeroen.kentekencheck.util.LicencePlateUtil;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static final String EXTRA_MESSAGE = "MainActivity.LICENCE";
+    public static final String EXTRA_MESSAGE = "MainActivity.VEHICLE";
     public static final String DATASET = "m9d7-ebf2";
     private RdwReader reader;
 
     private EditText etLicence;
     private Button requestButton;
+    private TextView tvError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,21 +35,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         reader = new RdwReader(getString(R.string.source_domain), getString(R.string.app_token), this);
 
         etLicence = findViewById(R.id.etLicence);
-        etLicence.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+        etLicence.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
 
         requestButton = findViewById(R.id.btnPlay);
         requestButton.setOnClickListener(this);
+
+        tvError = findViewById(R.id.tvError);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         requestButton.setEnabled(true);
+
+        tvError.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void onClick(View v) {
         final Context context = this;
+        tvError.setVisibility(View.INVISIBLE);
 
         String raw = etLicence.getText().toString();
         String licence = LicencePlateUtil.convertLicenseString(raw);
@@ -55,6 +62,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Check if licence is actually a valid licence
         if (LicencePlateUtil.getSidecodeLicenseplate(licence) < 0) {
             // No valid licence
+            tvError.setVisibility(View.VISIBLE);
+            tvError.setText(R.string.error_invalid);
+
             return;
         }
 
@@ -72,6 +82,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     intent.putExtra(EXTRA_MESSAGE, vehicle);
 
                     context.startActivity(intent);
+
+                } else {
+                    tvError.setVisibility(View.VISIBLE);
+                    tvError.setText(R.string.error_no_result);
+                    requestButton.setEnabled(true);
                 }
             }
         }, new Response.ErrorListener() {
@@ -79,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onErrorResponse(VolleyError error) {
                 //
                 requestButton.setEnabled(true);
+                tvError.setVisibility(View.VISIBLE);
+                tvError.setText(R.string.error_network);
             }
         });
     }
