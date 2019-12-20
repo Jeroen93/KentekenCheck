@@ -39,6 +39,14 @@ public class LicencePlateUtil {
     }
 
     public static String convertLicenseString(String license) {
+        if (license == null) {
+            throw new IllegalArgumentException("license");
+        }
+
+        if (license.isEmpty()){
+            return license;
+        }
+
         return license.replace("-", "").toUpperCase();
     }
 
