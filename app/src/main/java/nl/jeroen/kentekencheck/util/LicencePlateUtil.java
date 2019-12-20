@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class LicencePlateUtil {
     public static int getSidecodeLicenseplate(String licensePlate) {
-        licensePlate = licensePlate.replace("-", "").toUpperCase();
+        licensePlate = convertLicenseString(licensePlate);
 
         Pattern[] arrSC = new Pattern[14];
         arrSC[0] = Pattern.compile("^[a-zA-Z]{2}[\\d]{2}[\\d]{2}$");         //   1       XX-99-99
@@ -13,14 +13,14 @@ public class LicencePlateUtil {
         arrSC[3] = Pattern.compile("^[a-zA-Z]{2}[\\d]{2}[a-zA-Z]{2}$");     //   4       XX-99-XX
         arrSC[4] = Pattern.compile("^[a-zA-Z]{2}[a-zA-Z]{2}[\\d]{2}$");     //   5       XX-XX-99
         arrSC[5] = Pattern.compile("^[\\d]{2}[a-zA-Z]{2}[a-zA-Z]{2}$");     //   6       99-XX-XX
-        arrSC[6] = Pattern.compile("^[\\d]{2}[a-zA-Z]{3}[\\d]{1}$");      //   7       99-XXX-9
-        arrSC[7] = Pattern.compile("^[\\d]{1}[a-zA-Z]{3}[\\d]{2}$");         //   8       9-XXX-99
-        arrSC[8] = Pattern.compile("^[a-zA-Z]{2}[\\d]{3}[a-zA-Z]{1}$");     //   9       XX-999-X
-        arrSC[9] = Pattern.compile("^[a-zA-Z]{1}[\\d]{3}[a-zA-Z]{2}$");     //   10      X-999-XX
-        arrSC[10] = Pattern.compile("^[a-zA-Z]{3}[\\d]{2}[a-zA-Z]{1}$");     //   11      XXX-99-X
-        arrSC[11] = Pattern.compile("^[a-zA-Z]{1}[\\d]{2}[a-zA-Z]{3}$");     //   12      X-99-XXX
-        arrSC[12] = Pattern.compile("^[\\d]{1}[a-zA-Z]{2}[\\d]{3}$");         //   13      9-XX-999
-        arrSC[13] = Pattern.compile("^[\\d]{3}[a-zA-Z]{2}[\\d]{1}$");         //   14      999-XX-9
+        arrSC[6] = Pattern.compile("^[\\d]{2}[a-zA-Z]{3}[\\d]$");      //   7       99-XXX-9
+        arrSC[7] = Pattern.compile("^[\\d][a-zA-Z]{3}[\\d]{2}$");         //   8       9-XXX-99
+        arrSC[8] = Pattern.compile("^[a-zA-Z]{2}[\\d]{3}[a-zA-Z]$");     //   9       XX-999-X
+        arrSC[9] = Pattern.compile("^[a-zA-Z][\\d]{3}[a-zA-Z]{2}$");     //   10      X-999-XX
+        arrSC[10] = Pattern.compile("^[a-zA-Z]{3}[\\d]{2}[a-zA-Z]$");     //   11      XXX-99-X
+        arrSC[11] = Pattern.compile("^[a-zA-Z][\\d]{2}[a-zA-Z]{3}$");     //   12      X-99-XXX
+        arrSC[12] = Pattern.compile("^[\\d][a-zA-Z]{2}[\\d]{3}$");         //   13      9-XX-999
+        arrSC[13] = Pattern.compile("^[\\d]{3}[a-zA-Z]{2}[\\d]$");         //   14      999-XX-9
 
         for (int i = 0; i < arrSC.length; i++) {
             if (arrSC[i].matcher(licensePlate).matches()) {
@@ -38,9 +38,13 @@ public class LicencePlateUtil {
         return -1;
     }
 
+    public static String convertLicenseString(String license) {
+        return license.replace("-", "").toUpperCase();
+    }
+
     public static String FormatLicenseplate(String licensePlate, int sideCode) {
 
-        licensePlate = licensePlate.replace("-", "").toUpperCase();
+        licensePlate = convertLicenseString(licensePlate);
 
         if (sideCode <= 6) {
             return licensePlate.substring(0, 2) + '-' + licensePlate.substring(2, 2) + '-' + licensePlate.substring(4, 2);
