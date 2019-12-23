@@ -97,7 +97,12 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
         final Map.Entry<String, String> entry = (Map.Entry<String, String>) getChild(groupPosition, childPosition);
         final String listItemKey = entry.getKey();
-        final String listItemValue = entry.getValue();
+        String listItemValue = entry.getValue();
+
+        if (listItemValue == null || listItemValue.isEmpty()) {
+            listItemValue = "-";
+        }
+
         TextView tvKey = convertView.findViewById(R.id.listItemKey);
         tvKey.setText(listItemKey);
         TextView tvValue = convertView.findViewById(R.id.listItemValue);

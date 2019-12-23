@@ -28,7 +28,7 @@ class ExpandableListDataPump {
         general.put("Kleur", vehicle.eerste_kleur);
         general.put("Type", vehicle.type);
         general.put("Variant", vehicle.variant);
-        general.put("Catalogusprijs", "€" + vehicle.catalogusprijs);
+        general.put("Catalogusprijs", String.format("€%s", vehicle.catalogusprijs));
         general.put("Typegoedkeuringsnummer", vehicle.typegoedkeuringsnummer);
         general.put("WAM verzekerd", vehicle.wam_verzekerd);
         general.put("Geexporteerd", vehicle.export_indicator);
