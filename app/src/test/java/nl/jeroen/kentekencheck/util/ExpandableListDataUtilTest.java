@@ -45,7 +45,7 @@ class ExpandableListDataUtilTest {
             "Data, 4",
             "Gewichten en afmetingen, 8"
     })
-    void getVehicle_TestSubcategories(String categoryName, int expectedSize){
+    void getVehicle_TestSubcategories(String categoryName, int expectedSize) {
         LinkedHashMap<String, LinkedHashMap<String, String>> result =
                 ExpandableListDataUtil.getVehicleData(new RdwVehicle());
 
