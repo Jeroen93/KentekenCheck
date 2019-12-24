@@ -56,6 +56,8 @@ public class VehicleActivity extends AppCompatActivity {
             actionBar.setTitle(createHeaderTitle());
             actionBar.setSubtitle(getFormattedLicense());
         }
+
+        expandableListView.expandGroup(0);
     }
 
     private String getFormattedLicense() {
