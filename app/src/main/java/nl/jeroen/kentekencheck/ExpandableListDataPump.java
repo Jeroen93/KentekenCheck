@@ -57,11 +57,11 @@ class ExpandableListDataPump {
         LinkedHashMap<String, String> data = new LinkedHashMap<>();
         data.put("Vervaldatum APK", formatDate(vehicle.vervaldatum_apk));
         data.put("Eerste toelating", formatDate(vehicle.datum_eerste_toelating));
-        data.put("Eerste tenaamstelling", formatDate(vehicle.datum_tenaamstelling));
+        data.put("Tenaamstelling", formatDate(vehicle.datum_tenaamstelling));
         data.put("Eerste afgifte Nederland", formatDate(vehicle.datum_eerste_afgifte_nederland));
 
         vehicleData.put("Algemeen", general);
-        vehicleData.put("Gewichten en afmetingem", measurements);
+        vehicleData.put("Gewichten en afmetingen", measurements);
         vehicleData.put("Motor", engine);
         vehicleData.put("Eigenschappen", properties);
         vehicleData.put("Data", data);
