@@ -50,24 +50,31 @@ public class LicencePlateUtil {
         return license.replace("-", "").toUpperCase();
     }
 
-    public static String FormatLicenseplate(String licensePlate, int sideCode) {
-
+    public static String formatLicensePlate(String licensePlate, int sideCode) {
         licensePlate = convertLicenseString(licensePlate);
 
+        if (sideCode < 0) {
+            return licensePlate;
+        }
+
+        if (sideCode == 0) {
+            return String.format("%s-%s", licensePlate.substring(0, 3), licensePlate.substring(3));
+        }
+
         if (sideCode <= 6) {
-            return licensePlate.substring(0, 2) + '-' + licensePlate.substring(2, 2) + '-' + licensePlate.substring(4, 2);
+            return String.format("%s-%s-%s", licensePlate.substring(0, 2), licensePlate.substring(2, 4), licensePlate.substring(4));
         }
         if (sideCode == 7 || sideCode == 9) {
-            return licensePlate.substring(0, 2) + '-' + licensePlate.substring(2, 3) + '-' + licensePlate.substring(5, 1);
+            return String.format("%s-%s-%s", licensePlate.substring(0, 2), licensePlate.substring(2, 5), licensePlate.substring(5));
         }
         if (sideCode == 8 || sideCode == 10) {
-            return licensePlate.substring(0, 1) + '-' + licensePlate.substring(1, 3) + '-' + licensePlate.substring(4, 2);
+            return String.format("%s-%s-%s", licensePlate.substring(0, 1), licensePlate.substring(1, 4), licensePlate.substring(4));
         }
         if (sideCode == 11 || sideCode == 14) {
-            return licensePlate.substring(0, 3) + '-' + licensePlate.substring(3, 2) + '-' + licensePlate.substring(5, 1);
+            return String.format("%s-%s-%s", licensePlate.substring(0, 3), licensePlate.substring(3, 5), licensePlate.substring(5));
         }
         if (sideCode == 12 || sideCode == 13) {
-            return licensePlate.substring(0, 1) + '-' + licensePlate.substring(1, 2) + '-' + licensePlate.substring(3, 3);
+            return String.format("%s-%s-%s", licensePlate.substring(0, 1), licensePlate.substring(1, 3), licensePlate.substring(3, 6));
         }
         return licensePlate;
     }
