@@ -15,6 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import nl.jeroen.kentekencheck.model.RdwVehicle;
+import nl.jeroen.kentekencheck.util.LicencePlateUtil;
 
 public class VehicleActivity extends AppCompatActivity {
 
@@ -53,8 +54,14 @@ public class VehicleActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(createHeaderTitle());
-            actionBar.setSubtitle(vehicle.kenteken);
+            actionBar.setSubtitle(getFormattedLicense());
         }
+    }
+
+    private String getFormattedLicense() {
+        final int sideCode = LicencePlateUtil.getSidecodeLicenseplate(vehicle.kenteken);
+
+        return LicencePlateUtil.formatLicensePlate(vehicle.kenteken, sideCode);
     }
 
     private String createHeaderTitle() {
