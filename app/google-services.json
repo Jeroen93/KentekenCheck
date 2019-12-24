@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "928206744720",
+    "firebase_url": "https://kentekencheck-4d9b4.firebaseio.com",
+    "project_id": "kentekencheck-4d9b4",
+    "storage_bucket": "kentekencheck-4d9b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928206744720:android:87a73e0313610949683c15",
+        "android_client_info": {
+          "package_name": "nl.jeroen.kentekencheck"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928206744720-4mhb9clvlg8cn1lihuhf655llk4st6ni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfWUrXVKOEgCPig3_ARE1662Nppku6L2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "928206744720-4mhb9clvlg8cn1lihuhf655llk4st6ni.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
