@@ -5,4 +5,6 @@
     <string name="error_invalid">Ingevoerde tekst is geen geldig kenteken</string>
     <string name="error_network">Fout tijdens opvragen data bij RDW</string>
     <string name="error_no_result">RDW heeft geen data voor dit kenteken</string>
+    <string name="data_source">Data bron: RDW</string>
+    <string name="btn_request">Opvragen</string>
 </resources>
