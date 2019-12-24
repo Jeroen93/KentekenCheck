@@ -15,6 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import nl.jeroen.kentekencheck.model.RdwVehicle;
+import nl.jeroen.kentekencheck.util.ExpandableListDataUtil;
 import nl.jeroen.kentekencheck.util.LicencePlateUtil;
 
 public class VehicleActivity extends AppCompatActivity {
@@ -39,7 +40,7 @@ public class VehicleActivity extends AppCompatActivity {
         }
 
         expandableListView = findViewById(R.id.expandableListView);
-        expandableListDetail = ExpandableListDataPump.getVehicleData(vehicle);
+        expandableListDetail = ExpandableListDataUtil.getVehicleData(vehicle);
         expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
         expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);

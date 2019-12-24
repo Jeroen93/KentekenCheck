@@ -1,4 +1,4 @@
-package nl.jeroen.kentekencheck;
+package nl.jeroen.kentekencheck.util;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 
 import nl.jeroen.kentekencheck.model.RdwVehicle;
 
-class ExpandableListDataPump {
+public class ExpandableListDataUtil {
 
     private static final String UNIT_KILO = "kg";
     private static final String UNIT_CENTIMETER = "cm";
@@ -20,9 +20,23 @@ class ExpandableListDataPump {
         outputFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
     }
 
-    static LinkedHashMap<String, LinkedHashMap<String, String>> getVehicleData(RdwVehicle vehicle) {
-        LinkedHashMap<String, LinkedHashMap<String, String>> vehicleData = new LinkedHashMap<>();
+    public static LinkedHashMap<String, LinkedHashMap<String, String>> getVehicleData(RdwVehicle vehicle) {
 
+        if (vehicle == null) {
+            throw new IllegalArgumentException("Passed vehicle can not be null");
+        }
+
+        LinkedHashMap<String, LinkedHashMap<String, String>> vehicleData = new LinkedHashMap<>();
+        vehicleData.put("Algemeen", createGeneralData(vehicle));
+        vehicleData.put("Gewichten en afmetingen", createMeasurementsData(vehicle));
+        vehicleData.put("Motor", createEngineData(vehicle));
+        vehicleData.put("Eigenschappen", createPropertiesData(vehicle));
+        vehicleData.put("Data", createDatesData(vehicle));
+
+        return vehicleData;
+    }
+
+    private static LinkedHashMap<String, String> createGeneralData(RdwVehicle vehicle) {
         LinkedHashMap<String, String> general = new LinkedHashMap<>();
         general.put("Voertuigsoort", vehicle.voertuigsoort);
         general.put("Kleur", vehicle.eerste_kleur);
@@ -33,6 +47,10 @@ class ExpandableListDataPump {
         general.put("WAM verzekerd", vehicle.wam_verzekerd);
         general.put("Geexporteerd", vehicle.export_indicator);
 
+        return general;
+    }
+
+    private static LinkedHashMap<String, String> createMeasurementsData(RdwVehicle vehicle) {
         LinkedHashMap<String, String> measurements = new LinkedHashMap<>();
         measurements.put("Massa rijklaar", formatKg(vehicle.massa_rijklaar));
         measurements.put("Massa leeg", formatKg(vehicle.massa_ledig_voertuig));
@@ -43,30 +61,36 @@ class ExpandableListDataPump {
         measurements.put("Breedte", formatCm(vehicle.breedte));
         measurements.put("Wielbasis", formatCm(vehicle.wielbasis));
 
+        return measurements;
+    }
+
+    private static LinkedHashMap<String, String> createEngineData(RdwVehicle vehicle) {
         LinkedHashMap<String, String> engine = new LinkedHashMap<>();
         engine.put("Cilinderinhoud", String.format("%s %s", vehicle.cilinderinhoud, UNIT_CENTILITER));
         engine.put("Aantal cilinders", vehicle.aantal_cilinders);
         engine.put("Vermogen massarijklaar", vehicle.vermogen_massarijklaar);
         engine.put("Zuinigheidslabel", vehicle.zuinigheidslabel);
 
+        return engine;
+    }
+
+    private static LinkedHashMap<String, String> createPropertiesData(RdwVehicle vehicle) {
         LinkedHashMap<String, String> properties = new LinkedHashMap<>();
         properties.put("Aantal zitplaatsen", vehicle.aantal_zitplaatsen);
         properties.put("Aantal wielen", vehicle.aantal_wielen);
         properties.put("Aantal deuren", vehicle.aantal_deuren);
 
+        return properties;
+    }
+
+    private static LinkedHashMap<String, String> createDatesData(RdwVehicle vehicle) {
         LinkedHashMap<String, String> data = new LinkedHashMap<>();
         data.put("Vervaldatum APK", formatDate(vehicle.vervaldatum_apk));
         data.put("Eerste toelating", formatDate(vehicle.datum_eerste_toelating));
         data.put("Tenaamstelling", formatDate(vehicle.datum_tenaamstelling));
         data.put("Eerste afgifte Nederland", formatDate(vehicle.datum_eerste_afgifte_nederland));
 
-        vehicleData.put("Algemeen", general);
-        vehicleData.put("Gewichten en afmetingen", measurements);
-        vehicleData.put("Motor", engine);
-        vehicleData.put("Eigenschappen", properties);
-        vehicleData.put("Data", data);
-
-        return vehicleData;
+        return data;
     }
 
     private static String formatKg(String data) {
@@ -78,6 +102,10 @@ class ExpandableListDataPump {
     }
 
     private static String formatDate(String data) {
+        if (data == null || data.isEmpty()) {
+            return "";
+        }
+
         LocalDate date = LocalDate.parse(data, inputFormatter);
 
         return date.format(outputFormatter);
